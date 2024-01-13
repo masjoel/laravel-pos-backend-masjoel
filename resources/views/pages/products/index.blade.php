@@ -16,8 +16,8 @@
                     <a href="{{ route('product.create') }}" class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('product.index') }}">Products</a></div>
+                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="#">Products</a></div>
                     <div class="breadcrumb-item">All Products</div>
                 </div>
             </div>
@@ -68,6 +68,7 @@
                                             <th>Name</th>
                                             <th>Category</th>
                                             <th>Price</th>
+                                            <th>Photo</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
@@ -81,6 +82,16 @@
                                                 </td>
                                                 <td>
                                                     {{ $product->price }}
+                                                </td>
+                                                <td>
+                                                    @if ($product->image)
+                                                        <img src="{{ asset('storage/products/'.$product->image) }}" alt=""
+                                                            width="100px" class="img-thumbnail">
+                                                            @else
+                                                            <span class="badge badge-danger">No Image</span>
+
+                                                    @endif
+
                                                 </td>
                                                 <td>{{ $product->created_at }}</td>
                                                 <td>

@@ -18,9 +18,9 @@
             <div class="section-header">
                 <h1>Advanced Forms</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('product.index') }}">Products</a></div>
-                    <div class="breadcrumb-item">Forms</div>
+                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                    <div class="breadcrumb-item">Product</div>
+                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('product.store') }}" method="POST">
+                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header">
                             <h4>Input Text</h4>
@@ -95,6 +95,21 @@
 
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label>Photo Product</label>
+                                <div class="col-sm-9">
+                                    <input type="file" class="form-control" name="image"
+                                        @error('image') is-invalid @enderror>
+                                </div>
+                                @error('image')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>
