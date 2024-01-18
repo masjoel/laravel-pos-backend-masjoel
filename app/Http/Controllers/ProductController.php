@@ -68,13 +68,13 @@ class ProductController extends Controller
         $imagePath = Product::find($id)->image;
 
         if ($request->hasFile('image')) {
-            if ($imagePath && Storage::disk('public')->exists($imagePath)) {
-                Storage::disk('public')->delete($imagePath);
+            if (Storage::disk('public')->exists('products/' . $imagePath)) {
+                Storage::disk('public')->delete('products/' . $imagePath);
             }
             $imagePath = time() . '.' . $request->image->extension();
             $request->image->storeAs('public/products', $imagePath);
         }
-        
+
         $data = $request->all();
         $product = Product::findOrFail($id);
         $data['image'] = $imagePath;
