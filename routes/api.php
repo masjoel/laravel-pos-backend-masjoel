@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 
 /*
@@ -19,9 +20,7 @@ use App\Http\Controllers\Api\ProductController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-// post login
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-Route::post('register', [AuthController::class, 'register']);
-// api resource product
 Route::apiResource('products', ProductController::class)->middleware('auth:sanctum');
+Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -30,12 +31,12 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'stock' => 'required|integer',
             'category' => 'required|in:food,drink,snack',
-            'image' => 'required|image|mimes:png,jpg,jpeg'
+            'image' => 'required|image|mimes:png,jpg,jpeg,webp'
         ]);
 
         $filename = time() . '.' . $request->image->extension();
         $request->image->storeAs('public/products', $filename);
-        $data = $request->all();
+        // $data = $request->all();
 
         $product = new Product;
         $product->name = $request->name;
@@ -56,8 +57,27 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|min:3|unique:products,name,' . $id,
+            'price' => 'required|integer',
+            'stock' => 'required|integer',
+            'category' => 'required|in:food,drink,snack',
+            'image' => 'required|image|mimes:png,jpg,jpeg,webp'
+        ]);
+
+        $imagePath = Product::find($id)->image;
+
+        if ($request->hasFile('image')) {
+            if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                Storage::disk('public')->delete($imagePath);
+            }
+            $imagePath = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/products', $imagePath);
+        }
+        
         $data = $request->all();
         $product = Product::findOrFail($id);
+        $data['image'] = $imagePath;
         $product->update($data);
         return redirect()->route('product.index')->with('success', 'Product successfully updated');
     }
