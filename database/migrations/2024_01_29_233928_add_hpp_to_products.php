@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->double('hpp')->after('description');
-            $table->integer('stock_min')->after('stock');
+            $table->double('hpp')->after('description')->default(0);
+            $table->integer('stock_min')->after('stock')->default(0);
             $table->boolean('is_stock')->after('stock_min')->default(1);
             $table->boolean('publish')->after('is_stock')->default(1);
         });
