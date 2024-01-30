@@ -32,7 +32,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                            name="name" value="{{ old('name') }}">
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -42,8 +43,10 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>CoGS</label>
-                                                <input type="number" class="form-control @error('hpp') is-invalid @enderror" name="hpp" value="{{ old('hpp') }}">
+                                                <label>HPP</label>
+                                                <input type="number"
+                                                    class="form-control @error('hpp') is-invalid @enderror" name="hpp"
+                                                    value="{{ old('hpp') }}">
                                                 @error('hpp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -54,7 +57,9 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Price</label>
-                                                <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}">
+                                                <input type="number"
+                                                    class="form-control @error('price') is-invalid @enderror" name="price"
+                                                    value="{{ old('price') }}">
                                                 @error('price')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -65,7 +70,9 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Stock</label>
-                                                <input type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" value="{{ old('stock') }}">
+                                                <input type="number"
+                                                    class="form-control @error('stock') is-invalid @enderror" name="stock"
+                                                    value="{{ old('stock') }}">
                                                 @error('stock')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}

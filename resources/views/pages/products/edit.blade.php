@@ -46,7 +46,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>CoGS</label>
+                                                <label>HPP</label>
                                                 <input type="number" class="form-control @error('hpp') is-invalid @enderror" name="hpp" value="{{ old('hpp', $product->hpp) }}">
                                                 @error('hpp')
                                                     <div class="invalid-feedback">
