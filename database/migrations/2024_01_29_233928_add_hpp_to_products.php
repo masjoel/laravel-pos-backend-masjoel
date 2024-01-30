@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->double('hpp')->after('description')->default(0);
-            $table->integer('stock_min')->after('stock')->default(0);
-            $table->boolean('is_stock')->after('stock_min')->default(1);
-            $table->boolean('publish')->after('is_stock')->default(1);
+            // $table->integer('stock_min')->after('stock')->default(1);
+            // $table->boolean('is_stock')->after('stock_min')->default(1);
+            // $table->boolean('publish')->after('is_stock')->default(1);
         });
     }
 
@@ -26,9 +26,9 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn('hpp');
-            $table->dropColumn('stock_min');
-            $table->dropColumn('is_stock');
-            $table->dropColumn('publish');
+            // $table->dropColumn('stock_min');
+            // $table->dropColumn('is_stock');
+            // $table->dropColumn('publish');
         });
     }
 };

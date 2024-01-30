@@ -29,6 +29,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|min:3|unique:products',
             'price' => 'required|integer',
+            'hpp' => 'required|integer',
             'stock' => 'required|integer',
             'category' => 'required|in:food,drink,snack',
             'image' => 'required|image|mimes:png,jpg,jpeg,webp'
@@ -36,16 +37,10 @@ class ProductController extends Controller
 
         $filename = time() . '.' . $request->image->extension();
         $request->image->storeAs('public/products', $filename);
-        // $data = $request->all();
-
-        $product = new Product;
-        $product->name = $request->name;
-        $product->price = (int) $request->price;
-        $product->stock = (int) $request->stock;
-        $product->category = $request->category;
-        $product->image = $filename;
-        $product->save();
-
+        $data = $request->all();
+        $data['image'] = $filename;
+        // $data['stock_min'] = 0;
+        Product::create($data);
         return redirect()->route('product.index')->with('success', 'Product successfully created');
     }
 
@@ -57,24 +52,27 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'name' => 'required|min:3|unique:products,name,' . $id,
             'price' => 'required|integer',
+            'hpp' => 'required|integer',
             'stock' => 'required|integer',
             'category' => 'required|in:food,drink,snack',
-            'image' => 'required|image|mimes:png,jpg,jpeg,webp'
         ]);
 
         $imagePath = Product::find($id)->image;
 
         if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'required|image|mimes:png,jpg,jpeg,webp'
+            ]);
             if (Storage::disk('public')->exists('products/' . $imagePath)) {
                 Storage::disk('public')->delete('products/' . $imagePath);
             }
             $imagePath = time() . '.' . $request->image->extension();
             $request->image->storeAs('public/products', $imagePath);
         }
-
         $data = $request->all();
         $product = Product::findOrFail($id);
         $data['image'] = $imagePath;

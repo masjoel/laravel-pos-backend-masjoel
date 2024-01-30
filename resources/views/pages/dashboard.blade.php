@@ -374,7 +374,8 @@
             },
             options: {
                 legend: {
-                    display: false
+                    display: true,
+                    position: 'bottom',
                 },
                 scales: {
                     yAxes: [{

@@ -40,14 +40,14 @@
                                 <h4>All Products</h4>
                             </div>
                             <div class="card-body">
-                                <div class="float-left">
+                                {{-- <div class="float-left">
                                     <select class="form-control selectric">
                                         <option>Action For Selected</option>
                                         <option>Move to Draft</option>
                                         <option>Move to Pending</option>
                                         <option>Delete Pemanently</option>
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="float-right">
                                     <form method="GET" action="{{ route('product.index') }}">
                                         <div class="input-group">
@@ -67,6 +67,7 @@
 
                                             <th>Name</th>
                                             <th>Category</th>
+                                            <th>CoGS</th>
                                             <th>Price</th>
                                             <th>Photo</th>
                                             <th>Created At</th>
@@ -79,6 +80,9 @@
                                                 </td>
                                                 <td>
                                                     {{ $product->category }}
+                                                </td>
+                                                <td>
+                                                    {{ $product->hpp }}
                                                 </td>
                                                 <td>
                                                     {{ $product->price }}
