@@ -67,6 +67,7 @@
 
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Roles</th>
 
                                             <th>Created At</th>
                                             <th>Action</th>
@@ -74,12 +75,9 @@
                                         @foreach ($users as $user)
                                             <tr>
 
-                                                <td>{{ $user->name }}
-                                                </td>
-                                                <td>
-                                                    {{ $user->email }}
-                                                </td>
-
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ ucwords($user->roles) }}</td>
                                                 <td>{{ $user->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">

@@ -1,688 +1,399 @@
 @extends('layouts.app')
 
-@section('title', 'General Dashboard')
+@section('title', 'iPOS Dashboard')
 
 @push('style')
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('library/jqvmap/dist/jqvmap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.min.css') }}">
+    <style>
+        .card .card-stats .card-stats-title {
+            padding: 10px 25px !important;
+        }
+    </style>
 @endpush
 
 @section('main')
+    <!-- Main Content -->
     <div class="main-content">
         <section class="section">
-            <div class="section-header">
-                <h1>Dashboard</h1>
-            </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <i class="far fa-user"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Total Admin</h4>
-                            </div>
-                            <div class="card-body">
-                                10
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-danger">
-                            <i class="far fa-newspaper"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>News</h4>
-                            </div>
-                            <div class="card-body">
-                                42
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-warning">
-                            <i class="far fa-file"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Reports</h4>
-                            </div>
-                            <div class="card-body">
-                                1,201
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fas fa-circle"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Online Users</h4>
-                            </div>
-                            <div class="card-body">
-                                47
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-md-12 col-12 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Statistics</h4>
-                            <div class="card-header-action">
-                                <div class="btn-group">
-                                    <a href="#" class="btn btn-primary">Week</a>
-                                    <a href="#" class="btn">Month</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="myChart" height="182"></canvas>
-                            <div class="statistic-details mt-sm-4">
-                                <div class="statistic-details-item">
-                                    <span class="text-muted"><span class="text-primary"><i
-                                                class="fas fa-caret-up"></i></span> 7%</span>
-                                    <div class="detail-value">$243</div>
-                                    <div class="detail-name">Today's Sales</div>
-                                </div>
-                                <div class="statistic-details-item">
-                                    <span class="text-muted"><span class="text-danger"><i
-                                                class="fas fa-caret-down"></i></span> 23%</span>
-                                    <div class="detail-value">$2,902</div>
-                                    <div class="detail-name">This Week's Sales</div>
-                                </div>
-                                <div class="statistic-details-item">
-                                    <span class="text-muted"><span class="text-primary"><i
-                                                class="fas fa-caret-up"></i></span>9%</span>
-                                    <div class="detail-value">$12,821</div>
-                                    <div class="detail-name">This Month's Sales</div>
-                                </div>
-                                <div class="statistic-details-item">
-                                    <span class="text-muted"><span class="text-primary"><i
-                                                class="fas fa-caret-up"></i></span> 19%</span>
-                                    <div class="detail-value">$92,142</div>
-                                    <div class="detail-name">This Year's Sales</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12 col-12 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Recent Activities</h4>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled list-unstyled-border">
-                                <li class="media">
-                                    <img class="rounded-circle mr-3" width="50"
-                                        src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="text-primary float-right">Now</div>
-                                        <div class="media-title">Farhan A Mujib</div>
-                                        <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
-                                            Nulla vel metus scelerisque ante sollicitudin.</span>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="card card-statistic-2">
+                        <div class="card-stats">
+                            <form method="GET">
+                                @csrf
+                                <div class="d-flex justify-content-between">
+                                    <span class="card-stats-title text-nowrap">Statistik </span>
+                                    <div class="d-flex w-100">
+                                        @php
+                                            $months = [
+                                                '01' => 'Januari',
+                                                '02' => 'Februari',
+                                                '03' => 'Maret',
+                                                '04' => 'April',
+                                                '05' => 'Mei',
+                                                '06' => 'Juni',
+                                                '07' => 'Juli',
+                                                '08' => 'Agustus',
+                                                '09' => 'September',
+                                                '10' => 'Oktober',
+                                                '11' => 'November',
+                                                '12' => 'Desember',
+                                            ];
+                                        @endphp
+                                        <select name="search" class="form-control select2">
+                                            @foreach ($months as $m => $value)
+                                                <option value="{{ $m }}" {{ $m == $search ? 'selected' : '' }}>
+                                                    {{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-sm btn-primary" style="padding: 0.1rem 0.8rem"><i
+                                                        class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
-                                <li class="media">
-                                    <img class="rounded-circle mr-3" width="50"
-                                        src="{{ asset('img/avatar/avatar-2.png') }}" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="float-right">12m</div>
-                                        <div class="media-title">Ujang Maman</div>
-                                        <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
-                                            Nulla vel metus scelerisque ante sollicitudin.</span>
+                                </div>
+                            </form>
+                            <div class="card-stats-items mt-2">
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count">{{ $tot_proses }}</div>
+                                    <div class="card-stats-item-label">QRIS</div>
+                                </div>
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count">{{ $tot_finish }}</div>
+                                    <div class="card-stats-item-label">TUNAI</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6 d-flex">
+                                <a href="{{ route('order.index') }}">
+                                    <div class="card-icon shadow-primary bg-primary mb-0 mr-0">
+                                        <i class="fas fa-archive"></i>
                                     </div>
-                                </li>
-                                <li class="media">
-                                    <img class="rounded-circle mr-3" width="50"
-                                        src="{{ asset('img/avatar/avatar-3.png') }}" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="float-right">17m</div>
-                                        <div class="media-title">Rizal Fakhri</div>
-                                        <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
-                                            Nulla vel metus scelerisque ante sollicitudin.</span>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <img class="rounded-circle mr-3" width="50"
-                                        src="{{ asset('img/avatar/avatar-4.png') }}" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="float-right">21m</div>
-                                        <div class="media-title">Alfa Zulkarnain</div>
-                                        <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla.
-                                            Nulla vel metus scelerisque ante sollicitudin.</span>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="pt-1 pb-1 text-center">
-                                <a href="#" class="btn btn-primary btn-lg btn-round">
-                                    View All
                                 </a>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4 class="text-nowrap">Total Orders</h4>
+                                    </div>
+                                    <div class="card-body" style="font-size: 20px">
+                                        {{ number_format($tot_order) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 d-flex">
+                                <a href="{{ route('order.index') }}">
+                                    <div class="card-icon shadow-primary bg-primary mr-0">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </div>
+                                </a>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Sales</h4>
+                                    </div>
+                                    <div class="card-body" style="font-size: 20px">
+                                        {{ number_format($tot_sales) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="card card-statistic-2">
+                        <div class="card-chart">
+                            <canvas id="balance-chart" height="80"></canvas>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6 d-flex">
+                                <a href="{{ route('order.index') }}">
+                                    <div class="card-icon shadow-primary bg-primary mb-0 mr-0">
+                                        <i class="fas fa-rupiah-sign"></i>
+                                    </div>
+                                </a>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Omzet</h4>
+                                    </div>
+                                    <div class="card-body" style="font-size: 20px">
+                                        {{ number_format($tot_balance) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 d-flex">
+                                <a href="{{ route('order.index') }}">
+                                    <div class="card-icon shadow-primary bg-primary mr-0">
+                                        <i class="fas fa-rupiah-sign"></i>
+                                    </div>
+                                </a>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Laba</h4>
+                                    </div>
+                                    <div class="card-body" style="font-size: 20px">
+                                        {{ number_format($tot_balance - $tot_budget) }}
+                                        <span class="text-success"
+                                            style="font-size: 12px">{{ $tot_balance > 0 ? number_format((($tot_balance - $tot_budget) / $tot_balance) * 100, 2) : 0 }}%</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-12 col-12 col-sm-12">
+                <div class="col-lg-8">
                     <div class="card">
-                        <div class="card-body pt-2 pb-2">
-                            <div id="myWeather">Please wait</div>
+                        <div class="card-header">
+                            <h4>Biaya vs Penjualan</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myChart2" style="height: 100px"></canvas>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12 col-12 col-sm-12">
-                    <div class="card">
+                <div class="col-lg-4">
+                    <div class="card ">
                         <div class="card-header">
-                            <h4>Authors</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row pb-2">
-                                <div class="col-6 col-sm-3 col-lg-3 mb-md-0 mb-4">
-                                    <div class="avatar-item mb-0">
-                                        <img alt="image" src="{{ asset('img/avatar/avatar-5.png') }}"
-                                            class="img-fluid" data-toggle="tooltip" title="Alfa Zulkarnain">
-                                        <div class="avatar-badge" title="Editor" data-toggle="tooltip"><i
-                                                class="fas fa-wrench"></i></div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm-3 col-lg-3 mb-md-0 mb-4">
-                                    <div class="avatar-item mb-0">
-                                        <img alt="image" src="{{ asset('img/avatar/avatar-4.png') }}"
-                                            class="img-fluid" data-toggle="tooltip" title="Egi Ferdian">
-                                        <div class="avatar-badge" title="Admin" data-toggle="tooltip"><i
-                                                class="fas fa-cog"></i></div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm-3 col-lg-3 mb-md-0 mb-4">
-                                    <div class="avatar-item mb-0">
-                                        <img alt="image" src="{{ asset('img/avatar/avatar-1.png') }}"
-                                            class="img-fluid" data-toggle="tooltip" title="Jaka Ramadhan">
-                                        <div class="avatar-badge" title="Author" data-toggle="tooltip"><i
-                                                class="fas fa-pencil-alt"></i></div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm-3 col-lg-3 mb-md-0 mb-4">
-                                    <div class="avatar-item mb-0">
-                                        <img alt="image" src="{{ asset('img/avatar/avatar-2.png') }}"
-                                            class="img-fluid" data-toggle="tooltip" title="Ryan">
-                                        <div class="avatar-badge" title="Admin" data-toggle="tooltip"><i
-                                                class="fas fa-cog"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Referral URL</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-4">
-                                <div class="text-small font-weight-bold text-muted float-right">2,100</div>
-                                <div class="font-weight-bold mb-1">Google</div>
-                                <div class="progress" data-height="3">
-                                    <div class="progress-bar" role="progressbar" data-width="80%" aria-valuenow="80"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
+                            <h4>5 Produk terlaris</h4>
+                            <form method="GET">
+                                @csrf
 
-                            <div class="mb-4">
-                                <div class="text-small font-weight-bold text-muted float-right">1,880</div>
-                                <div class="font-weight-bold mb-1">Facebook</div>
-                                <div class="progress" data-height="3">
-                                    <div class="progress-bar" role="progressbar" data-width="67%" aria-valuenow="25"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <div class="text-small font-weight-bold text-muted float-right">1,521</div>
-                                <div class="font-weight-bold mb-1">Bing</div>
-                                <div class="progress" data-height="3">
-                                    <div class="progress-bar" role="progressbar" data-width="58%" aria-valuenow="25"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <div class="text-small font-weight-bold text-muted float-right">884</div>
-                                <div class="font-weight-bold mb-1">Yahoo</div>
-                                <div class="progress" data-height="3">
-                                    <div class="progress-bar" role="progressbar" data-width="36%" aria-valuenow="25"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <div class="text-small font-weight-bold text-muted float-right">473</div>
-                                <div class="font-weight-bold mb-1">Kodinger</div>
-                                <div class="progress" data-height="3">
-                                    <div class="progress-bar" role="progressbar" data-width="28%" aria-valuenow="25"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <div class="text-small font-weight-bold text-muted float-right">418</div>
-                                <div class="font-weight-bold mb-1">Multinity</div>
-                                <div class="progress" data-height="3">
-                                    <div class="progress-bar" role="progressbar" data-width="20%" aria-valuenow="25"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Popular Browser</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col text-center">
-                                    <div class="browser browser-chrome"></div>
-                                    <div class="font-weight-bold mt-2">Chrome</div>
-                                    <div class="text-muted text-small"><span class="text-primary"><i
-                                                class="fas fa-caret-up"></i></span> 48%</div>
-                                </div>
-                                <div class="col text-center">
-                                    <div class="browser browser-firefox"></div>
-                                    <div class="font-weight-bold mt-2">Firefox</div>
-                                    <div class="text-muted text-small"><span class="text-primary"><i
-                                                class="fas fa-caret-up"></i></span> 26%</div>
-                                </div>
-                                <div class="col text-center">
-                                    <div class="browser browser-safari"></div>
-                                    <div class="font-weight-bold mt-2">Safari</div>
-                                    <div class="text-muted text-small"><span class="text-danger"><i
-                                                class="fas fa-caret-down"></i></span> 14%</div>
-                                </div>
-                                <div class="col text-center">
-                                    <div class="browser browser-opera"></div>
-                                    <div class="font-weight-bold mt-2">Opera</div>
-                                    <div class="text-muted text-small">7%</div>
-                                </div>
-                                <div class="col text-center">
-                                    <div class="browser browser-internet-explorer"></div>
-                                    <div class="font-weight-bold mt-2">IE</div>
-                                    <div class="text-muted text-small"><span class="text-primary"><i
-                                                class="fas fa-caret-up"></i></span> 5%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mt-sm-5 mt-md-0">
-                        <div class="card-header">
-                            <h4>Visitors</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="visitorMap"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>This Week Stats</h4>
-                            <div class="card-header-action">
-                                <div class="dropdown">
-                                    <a href="#" class="dropdown-toggle btn btn-primary"
-                                        data-toggle="dropdown">Filter</a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a href="#" class="dropdown-item has-icon"><i class="far fa-circle"></i>
-                                            Electronic</a>
-                                        <a href="#" class="dropdown-item has-icon"><i class="far fa-circle"></i>
-                                            T-shirt</a>
-                                        <a href="#" class="dropdown-item has-icon"><i class="far fa-circle"></i>
-                                            Hat</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item">View All</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="summary">
-                                <div class="summary-info">
-                                    <h4>$1,053</h4>
-                                    <div class="text-muted">Sold 3 items on 2 customers</div>
-                                    <div class="d-block mt-2">
-                                        <a href="#">View All</a>
-                                    </div>
-                                </div>
-                                <div class="summary-item">
-                                    <h6>Item List <span class="text-muted">(3 Items)</span></h6>
-                                    <ul class="list-unstyled list-unstyled-border">
-                                        <li class="media">
-                                            <a href="#">
-                                                <img class="mr-3 rounded" width="50"
-                                                    src="{{ asset('img/products/product-1-50.png') }}" alt="product">
-                                            </a>
-                                            <div class="media-body">
-                                                <div class="media-right">$405</div>
-                                                <div class="media-title"><a href="#">PlayStation 9</a></div>
-                                                <div class="text-muted text-small">by <a href="#">Hasan Basri</a>
-                                                    <div class="bullet"></div> Sunday
-                                                </div>
+                                <div class="d-flex justify-content-between">
+                                    @php
+                                        $toporder = [
+                                            date('Y-m-d') => 'Hari ini',
+                                            date('W') => 'Minggu ini',
+                                            date('m') => 'Bulan ini',
+                                            date('Y') => 'Tahun ini',
+                                        ];
+                                    @endphp
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex clearfix">
+                                            <select name="terlaris" class="form-control form-control-sm select2"
+                                                style="border-radius:3px">
+                                                @foreach ($toporder as $y => $value)
+                                                    <option value="{{ $y }}"
+                                                        {{ $y == $terlaris ? 'selected' : '' }}>
+                                                        {{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-sm btn-primary" style="border-radius:3px"><i
+                                                        class="fas fa-search"></i></button>
                                             </div>
-                                        </li>
-                                        <li class="media">
-                                            <a href="#">
-                                                <img class="mr-3 rounded" width="50"
-                                                    src="{{ asset('img/products/product-2-50.png') }}" alt="product">
-                                            </a>
-                                            <div class="media-body">
-                                                <div class="media-right">$499</div>
-                                                <div class="media-title"><a href="#">RocketZ</a></div>
-                                                <div class="text-muted text-small">by <a href="#">Hasan Basri</a>
-                                                    <div class="bullet"></div> Sunday
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <a href="#">
-                                                <img class="mr-3 rounded" width="50"
-                                                    src="{{ asset('img/products/product-3-50.png') }}" alt="product">
-                                            </a>
-                                            <div class="media-body">
-                                                <div class="media-right">$149</div>
-                                                <div class="media-title"><a href="#">Xiaomay Readme 4.0</a></div>
-                                                <div class="text-muted text-small">by <a href="#">Kusnaedi</a>
-                                                    <div class="bullet"></div> Tuesday
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="d-inline">Tasks</h4>
-                            <div class="card-header-action">
-                                <a href="#" class="btn btn-primary">View All</a>
-                            </div>
+                            </form>
                         </div>
                         <div class="card-body">
                             <ul class="list-unstyled list-unstyled-border">
-                                <li class="media">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cbx-1">
-                                        <label class="custom-control-label" for="cbx-1"></label>
-                                    </div>
-                                    <img class="rounded-circle mr-3" width="50"
-                                        src="{{ asset('img/avatar/avatar-4.png') }}" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="badge badge-pill badge-danger float-right mb-1">Not Finished</div>
-                                        <h6 class="media-title"><a href="#">Redesign header</a></h6>
-                                        <div class="text-small text-muted">Alfa Zulkarnain <div class="bullet"></div>
-                                            <span class="text-primary">Now</span>
+                                @foreach ($bestproducts as $item)
+                                    @php
+                                        $item_sales = $item->total_sales * $item->price;
+                                        $item_budget = $item->total_sales * $item->hpp;
+                                        $tot_pros = $item_sales + $item_budget;
+                                        $pros_sales = ($item_sales / $tot_pros) * 100;
+                                        $pros_budget = ($item_budget / $tot_pros) * 100;
+                                    @endphp
+                                    <li class="media">
+                                        <a href="{{ route('product.edit', $item->id) }}">
+                                            @if ($item->image_url !== null)
+                                                <img class="mr-3 rounded" width="55"
+                                                    src="{{ Storage::url($item->image_url) }}" alt="product">
+                                            @endif
+                                        </a>
+                                        <div class="media-body">
+                                            <div class="float-right">
+                                                <div class="font-weight-600 text-muted text-small">
+                                                    {{ $item->total_sales }}
+                                                    terjual</div>
+                                            </div>
+                                            <div class="media-title">{{ $item->name }}</div>
+                                            <div class="mt-1">
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-primary"
+                                                        data-width="{{ $pros_sales }}%"></div>
+                                                    <div class="budget-price-label">{{ number_format($item_sales) }}</div>
+                                                </div>
+                                                <div class="budget-price">
+                                                    <div class="budget-price-square bg-danger"
+                                                        data-width="{{ $pros_budget }}%"></div>
+                                                    <div class="budget-price-label">{{ number_format($item_budget) }}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cbx-2"
-                                            checked="">
-                                        <label class="custom-control-label" for="cbx-2"></label>
-                                    </div>
-                                    <img class="rounded-circle mr-3" width="50"
-                                        src="{{ asset('img/avatar/avatar-5.png') }}" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="badge badge-pill badge-primary float-right mb-1">Completed</div>
-                                        <h6 class="media-title"><a href="#">Add a new component</a></h6>
-                                        <div class="text-small text-muted">Serj Tankian <div class="bullet"></div> 4 Min
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cbx-3">
-                                        <label class="custom-control-label" for="cbx-3"></label>
-                                    </div>
-                                    <img class="rounded-circle mr-3" width="50"
-                                        src="{{ asset('img/avatar/avatar-2.png') }}" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="badge badge-pill badge-warning float-right mb-1">Progress</div>
-                                        <h6 class="media-title"><a href="#">Fix modal window</a></h6>
-                                        <div class="text-small text-muted">Ujang Maman <div class="bullet"></div> 8 Min
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cbx-4">
-                                        <label class="custom-control-label" for="cbx-4"></label>
-                                    </div>
-                                    <img class="rounded-circle mr-3" width="50"
-                                        src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar">
-                                    <div class="media-body">
-                                        <div class="badge badge-pill badge-danger float-right mb-1">Not Finished</div>
-                                        <h6 class="media-title"><a href="#">Remove unwanted classes</a></h6>
-                                        <div class="text-small text-muted">Farhan A Mujib <div class="bullet"></div> 21
-                                            Min</div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-5 col-md-12 col-12 col-sm-12">
-                    <form method="post" class="needs-validation" novalidate="">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Quick Draft</h4>
-                            </div>
-                            <div class="card-body pb-0">
-                                <div class="form-group">
-                                    <label>Title</label>
-                                    <input type="text" name="title" class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        Please fill in the title
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Content</label>
-                                    <textarea class="summernote-simple"></textarea>
-                                </div>
-                            </div>
-                            <div class="card-footer pt-0">
-                                <button class="btn btn-primary">Save Draft</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-7 col-md-12 col-12 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Latest Posts</h4>
-                            <div class="card-header-action">
-                                <a href="#" class="btn btn-primary">View All</a>
-                            </div>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table-striped mb-0 table">
-                                    <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Author</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                Introduction Laravel 5
-                                                <div class="table-links">
-                                                    in <a href="#">Web Development</a>
-                                                    <div class="bullet"></div>
-                                                    <a href="#">View</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="font-weight-600"><img
-                                                        src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar"
-                                                        width="30" class="rounded-circle mr-1"> Bagus Dwi Cahya</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Laravel 5 Tutorial - Installation
-                                                <div class="table-links">
-                                                    in <a href="#">Web Development</a>
-                                                    <div class="bullet"></div>
-                                                    <a href="#">View</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="font-weight-600"><img
-                                                        src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar"
-                                                        width="30" class="rounded-circle mr-1"> Bagus Dwi Cahya</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Laravel 5 Tutorial - MVC
-                                                <div class="table-links">
-                                                    in <a href="#">Web Development</a>
-                                                    <div class="bullet"></div>
-                                                    <a href="#">View</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="font-weight-600"><img
-                                                        src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar"
-                                                        width="30" class="rounded-circle mr-1"> Bagus Dwi Cahya</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Laravel 5 Tutorial - Migration
-                                                <div class="table-links">
-                                                    in <a href="#">Web Development</a>
-                                                    <div class="bullet"></div>
-                                                    <a href="#">View</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="font-weight-600"><img
-                                                        src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar"
-                                                        width="30" class="rounded-circle mr-1"> Bagus Dwi Cahya</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Laravel 5 Tutorial - Deploy
-                                                <div class="table-links">
-                                                    in <a href="#">Web Development</a>
-                                                    <div class="bullet"></div>
-                                                    <a href="#">View</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="font-weight-600"><img
-                                                        src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar"
-                                                        width="30" class="rounded-circle mr-1"> Bagus Dwi Cahya</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Laravel 5 Tutorial - Closing
-                                                <div class="table-links">
-                                                    in <a href="#">Web Development</a>
-                                                    <div class="bullet"></div>
-                                                    <a href="#">View</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="font-weight-600"><img
-                                                        src="{{ asset('img/avatar/avatar-1.png') }}" alt="avatar"
-                                                        width="30" class="rounded-circle mr-1"> Bagus Dwi Cahya</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </section>
     </div>
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    <script src="{{ asset('library/simpleweather/jquery.simpleWeather.min.js') }}"></script>
     <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
-    <script src="{{ asset('library/jqvmap/dist/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('library/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('library/summernote/dist/summernote-bs4.min.js') }}"></script>
-    <script src="{{ asset('library/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('js/page/index-0.js') }}"></script>
+    <script>
+        let asset = '{{ Storage::url('') }}';
+        $(document).on("click", "a#delete-data", function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            showDeletePopup('{{ url('') }}/order/' + id, '{{ csrf_token() }}',
+                '{{ url('') }}/order');
+        });
+
+        function showDeletePopup(url, token, reload) {
+            swal({
+                    title: 'Hapus data',
+                    text: 'Yakin data akan dihapus?',
+                    icon: 'error',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                                url: url,
+                                "headers": {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                type: "DELETE"
+                            })
+                            .done(function(data) {
+                                if (data.status == 'success') {
+                                    swal('Data telah dihapus', {
+                                        icon: 'success',
+                                    });
+                                    setTimeout(function() {
+                                        swal.close()
+                                        window.location.replace(reload);
+                                    }, 1000);
+                                } else {
+                                    swal("Error!", data.message, "error");
+                                }
+                            })
+                            .fail(function(data) {
+                                swal("Oops...!", "Terjadi kesalahan pada server!", "error");
+                            });
+                    }
+                });
+        }
+
+        var tglBalance = @json($tglBalance);
+        var totalBudget = @json($totalBudget);
+        var totalBalance = @json($totalBalance);
+
+        var balance_chart = document.getElementById("balance-chart").getContext("2d");
+        var balance_chart_bg_color = balance_chart.createLinearGradient(0, 0, 0, 70);
+        balance_chart_bg_color.addColorStop(0, "rgba(63,82,227,.2)");
+        balance_chart_bg_color.addColorStop(1, "rgba(63,82,227,0)");
+
+        var myChart = new Chart(balance_chart, {
+            type: "line",
+            data: {
+                labels: tglBalance,
+                datasets: [{
+                    label: "Balance",
+                    data: totalBalance,
+                    backgroundColor: balance_chart_bg_color,
+                    borderWidth: 3,
+                    borderColor: "rgba(63,82,227,1)",
+                    pointBorderWidth: 0,
+                    pointBorderColor: "transparent",
+                    pointRadius: 3,
+                    pointBackgroundColor: "transparent",
+                    pointHoverBackgroundColor: "rgba(63,82,227,1)",
+                }, ],
+            },
+            options: {
+                layout: {
+                    padding: {
+                        bottom: -1,
+                        left: -1,
+                    },
+                },
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            display: false,
+                        },
+                    }, ],
+                    xAxes: [{
+                        gridLines: {
+                            drawBorder: false,
+                            display: false,
+                        },
+                        ticks: {
+                            display: false,
+                        },
+                    }, ],
+                },
+            },
+        });
+
+        var ctx = document.getElementById("myChart2").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: tglBalance,
+                datasets: [{
+                    label: 'Biaya',
+                    data: totalBudget,
+                    borderWidth: 2,
+                    backgroundColor: '#fc544b',
+                    borderColor: '#fc544b',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#ffffff',
+                    pointRadius: 4
+                }, {
+                    label: 'Penjualan',
+                    data: totalBalance,
+                    borderWidth: 2,
+                    backgroundColor: '#6777ef',
+                    borderColor: '#6777ef',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#ffffff',
+                    pointRadius: 4
+                }, ]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            drawBorder: false,
+                            color: '#f2f2f2',
+                        },
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                },
+            }
+        });
+
+    </script>
 @endpush
