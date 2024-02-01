@@ -99,8 +99,8 @@
                                         <span class="selectgroup-button">Staff</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="user" class="selectgroup-input">
-                                        <span class="selectgroup-button">User</span>
+                                        <input type="radio" name="roles" value="kasir" class="selectgroup-input">
+                                        <span class="selectgroup-button">Kasir</span>
                                     </label>
 
                                 </div>

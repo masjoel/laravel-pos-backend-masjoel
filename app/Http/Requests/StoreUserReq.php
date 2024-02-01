@@ -24,7 +24,7 @@ class StoreUserReq extends FormRequest
         return [
             'name' => 'required|max:100|min:3',
             'email' => 'required|email',
-            'phone' => 'required',
+            'phone' => 'nullable|string',
             'roles' => 'required',
         ];
     }
