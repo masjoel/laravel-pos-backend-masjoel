@@ -63,7 +63,7 @@
                                             <tr>
 
                                                 <td><a
-                                                        href="{{ route('order.show', $order->id) }}">{{ $order->transaction_time }}</a>
+                                                        href="{{ route('order.show', $order->id) }}">{{ date('d M Y H:i:s', strtotime($order->transaction_time)) }}</a>
                                                 </td>
                                                 <td>
                                                     {{ $order->total_price }}
