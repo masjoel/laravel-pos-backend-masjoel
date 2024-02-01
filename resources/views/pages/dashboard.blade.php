@@ -56,11 +56,11 @@
                             </form>
                             <div class="card-stats-items mt-2">
                                 <div class="card-stats-item">
-                                    <div class="card-stats-item-count">{{ $tot_proses }}</div>
+                                    <div class="card-stats-item-count">{{ number_format($tot_proses) }}</div>
                                     <div class="card-stats-item-label">QRIS</div>
                                 </div>
                                 <div class="card-stats-item">
-                                    <div class="card-stats-item-count">{{ $tot_finish }}</div>
+                                    <div class="card-stats-item-count">{{ number_format($tot_finish) }}</div>
                                     <div class="card-stats-item-label">TUNAI</div>
                                 </div>
                             </div>

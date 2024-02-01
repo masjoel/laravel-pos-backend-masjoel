@@ -19,8 +19,10 @@ class DashboardController extends Controller
         $qry2 = Order::select(DB::raw('SUM(total_hpp) as total_hpp'));
         $qry3 = Order::select(DB::raw('SUM(total_price) as total_price'));
         $qry4 = Order::select(DB::raw('COUNT(id) as total_order'));
-        $qry5 = Order::select(DB::raw('COUNT(id) as total_order'));
-        $qry6 = Order::select(DB::raw('COUNT(id) as total_order'));
+        $qry5 = Order::select(DB::raw('SUM(total_price) as total_order'));
+        $qry6 = Order::select(DB::raw('SUM(total_price) as total_order'));
+        // $qry5 = Order::select(DB::raw('COUNT(id) as total_order'));
+        // $qry6 = Order::select(DB::raw('COUNT(id) as total_order'));
         $qry7 = Order::select(DB::raw('COUNT(id) as total_order'));
         $qry8 = OrderItem::leftJoin('orders', 'orders.id', '=', 'order_items.order_id');
         $qry9 = Product::select('products.id', 'products.name', 'products.image', 'products.hpp', 'products.price', DB::raw('SUM(order_items.quantity) as total_sales'))
