@@ -36,9 +36,9 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
+                            {{-- <div class="card-header">
                                 <h4>All Products</h4>
-                            </div>
+                            </div> --}}
                             <div class="card-body">
                                 {{-- <div class="float-left">
                                     <select class="form-control selectric">
@@ -66,12 +66,12 @@
                                         <tr>
 
                                             <th>Name</th>
-                                            <th>Category</th>
                                             <th>CoGS</th>
                                             <th>Price</th>
                                             <th>Photo</th>
-                                            <th>Created At</th>
-                                            <th>Action</th>
+                                            <th>Category</th>
+                                            {{-- <th>Created At</th> --}}
+                                            <th class="text-center">Action</th>
                                         </tr>
                                         @foreach ($products as $product)
                                             <tr>
@@ -79,25 +79,25 @@
                                                 <td>{{ $product->name }}
                                                 </td>
                                                 <td>
-                                                    {{ $product->category }}
+                                                    {{ number_format($product->hpp) }}
                                                 </td>
                                                 <td>
-                                                    {{ $product->hpp }}
-                                                </td>
-                                                <td>
-                                                    {{ $product->price }}
+                                                    {{ number_format($product->price) }}
                                                 </td>
                                                 <td>
                                                     @if ($product->image)
-                                                        <img src="{{ asset('storage/products/'.$product->image) }}" alt=""
-                                                            width="100px" class="img-thumbnail">
-                                                            @else
-                                                            <span class="badge badge-danger">No Image</span>
-
+                                                    <img src="{{ asset('storage/products/'.$product->image) }}" alt=""
+                                                    width="100px" class="img-thumbnail">
+                                                    @else
+                                                    <span class="badge badge-danger">No Image</span>
+                                                    
                                                     @endif
-
+                                                    
                                                 </td>
-                                                <td>{{ $product->created_at }}</td>
+                                                <td>
+                                                    {{ ucwords($product->category) }}
+                                                </td>
+                                                {{-- <td>{{ $product->created_at->diffForHumans() }}</td> --}}
                                                 <td>
                                                     <div class="d-flex justify-content-center">
                                                         <a href='{{ route('product.edit', $product->id) }}'

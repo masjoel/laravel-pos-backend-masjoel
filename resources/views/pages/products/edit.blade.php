@@ -11,11 +11,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Advanced Forms</h1>
+                <h1>Edit product</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="{{ route('product.index') }}">Products</a></div>
-                    <div class="breadcrumb-item">Forms</div>
+                    <div class="breadcrumb-item">Edit product</div>
                 </div>
             </div>
 
@@ -28,9 +28,9 @@
                     <form action="{{ route('product.update', $product) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="card-header">
+                        {{-- <div class="card-header">
                             <h4>Input Text</h4>
-                        </div>
+                        </div> --}}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
