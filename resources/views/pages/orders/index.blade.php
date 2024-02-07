@@ -32,9 +32,9 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
+                            {{-- <div class="card-header">
                                 <h4>All Orders</h4>
-                            </div>
+                            </div> --}}
                             <div class="card-body">
 
                                 {{-- <div class="float-right">
@@ -55,8 +55,8 @@
                                         <tr>
 
                                             <th>Transaction Time</th>
-                                            <th>Total Price</th>
-                                            <th>Total Item</th>
+                                            <th class="text-right">Total Price</th>
+                                            <th class="text-right">Total Item</th>
                                             <th>Kasir</th>
                                         </tr>
                                         @foreach ($orders as $order)
@@ -65,10 +65,10 @@
                                                 <td><a
                                                         href="{{ route('order.show', $order->id) }}">{{ date('d M Y H:i:s', strtotime($order->transaction_time)) }}</a>
                                                 </td>
-                                                <td>
-                                                    {{ $order->total_price }}
+                                                <td class="text-right">
+                                                    {{ number_format($order->total_price) }}
                                                 </td>
-                                                <td>
+                                                <td class="text-right">
                                                     {{ $order->total_item }}
                                                 </td>
                                                 <td>

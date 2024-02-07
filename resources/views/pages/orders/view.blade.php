@@ -27,7 +27,7 @@
                 </div>
                 <h2 class="section-title">Order Detail</h2>
                 <p class="section-lead">
-                <div>Total Price {{ $order->total_price }}</div>
+                <div>Total Price {{ number_format($order->total_price) }}</div>
                 <div>Transaction Time {{ $order->transaction_time }}</div>
                 <div>Total Item {{ $order->total_item }}</div>
 
@@ -37,23 +37,19 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
+                            {{-- <div class="card-header">
                                 <h4>All Products</h4>
-                            </div>
+                            </div> --}}
                             <div class="card-body">
-
-
-
                                 <div class="clearfix mb-3"></div>
-
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
 
                                             <th>Product Name</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total Price</th>
+                                            <th class="text-right">Price</th>
+                                            <th class="text-right">Quantity</th>
+                                            <th class="text-right">Total Price</th>
 
                                         </tr>
                                         @foreach ($orderItems as $item)
@@ -61,15 +57,14 @@
 
                                                 <td>{{ $item->product->name }}</td>
                                                 </td>
-                                                <td>
-                                                    {{ $item->product->price }}
+                                                <td class="text-right">
+                                                    {{ number_format($item->product->price) }}
                                                 </td>
-                                                <td>
+                                                <td class="text-right">
                                                     {{ $item->quantity }}
                                                 </td>
-                                                <td>
-                                                    {{ $item->total_price }}
-
+                                                <td class="text-right">
+                                                    {{ number_format($item->product->price * $item->quantity) }}
                                                 </td>
 
                                             </tr>
