@@ -128,7 +128,7 @@
                                 </a>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Laba</h4>
+                                        <h4>Margin</h4>
                                     </div>
                                     <div class="card-body" style="font-size: 20px">
                                         {{ number_format($tot_balance - $tot_budget) }}
