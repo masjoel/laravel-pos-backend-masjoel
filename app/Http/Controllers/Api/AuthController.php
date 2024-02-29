@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -52,32 +53,64 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $loginData = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required'
         ]);
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return response([
-                'message' => ['Email not found !'],
-            ], 404);
+            throw ValidationException::withMessages([
+                'email' => ['email incorrect']
+            ]);
         }
 
         if (!Hash::check($request->password, $user->password)) {
-            return response([
-                'message' => ['Password is wrong !'],
-            ], 404);
+            throw ValidationException::withMessages([
+                'password' => ['password incorrect']
+            ]);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response([
-            'user' => $user,
-            'token' => $token,
-        ], 200);
+        return response()->json(
+            [
+                'token' => $token,
+                'user' => new UserResource($user),
+            ]
+        );
     }
+    // public function login(Request $request)
+    // {
+    //     $loginData = $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     $user = User::where('email', $request->email)->first();
+
+    //     if (!$user) {
+    //         return response([
+    //             'message' => 'Email not found !',
+    //             'errors' => ['email' => ['Email not found !']],
+    //         ], 404);
+    //     }
+
+    //     if (!Hash::check($request->password, $user->password)) {
+    //         return response([
+    //             'message' => 'Password is wrong !',
+    //             'errors' => ['password' => ['Password is wrong !']],
+    //         ], 404);
+    //     }
+
+    //     $token = $user->createToken('auth_token')->plainTextToken;
+
+    //     return response([
+    //         'user' => $user,
+    //         'token' => $token,
+    //     ], 200);
+    // }
 
     public function register(Request $request)
     {
