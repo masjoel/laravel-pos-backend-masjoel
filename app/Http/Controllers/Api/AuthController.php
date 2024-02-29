@@ -111,7 +111,7 @@ class AuthController extends Controller
         $user->remember_token = $request->deviceid;
         $user->save();
         return response()->json([
-            'user' => new UserResource($user),
+            // 'user' => new UserResource($user),
             'message' => 'device id saved successfully',
         ]);
     }
