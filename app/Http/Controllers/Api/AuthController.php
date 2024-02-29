@@ -107,13 +107,14 @@ class AuthController extends Controller
             'email' => 'required',
             'deviceid' => 'required'
         ]);
-        $user = User::where('email', $request->email)->first();
-        $user->remember_token = $request->deviceid;
+        $user = User::where('email', $request->email)->where('device_id', '')->first();
+        $user->device_id = $request->deviceid;
         $user->save();
-        return response()->json([
-            // 'user' => new UserResource($user),
-            'message' => 'device id saved successfully',
-        ]);
+        if ($user) {
+            return response()->json(['message' => 'device id saved successfully']);
+        } else {
+            return response()->json(['message' => 'aplikasi sudah terinstal di gadget lain!']);
+        }
     }
 
     public function logout(Request $request)
