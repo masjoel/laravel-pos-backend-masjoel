@@ -77,7 +77,8 @@ class AuthController extends Controller
         return response()->json(
             [
                 'token' => $token,
-                'user' => new UserResource($user),
+                'user' => $user,
+                // 'user' => new UserResource($user),
             ]
         );
     }
@@ -92,7 +93,7 @@ class AuthController extends Controller
 
     //     if (!$user) {
     //         return response([
-    //             'message' => 'Email not found !',
+    //             'message' => 'Email  found !',
     //             'errors' => ['email' => ['Email not found !']],
     //         ], 404);
     //     }
