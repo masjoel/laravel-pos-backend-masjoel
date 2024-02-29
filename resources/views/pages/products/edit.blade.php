@@ -28,9 +28,6 @@
                     <form action="{{ route('product.update', $product) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        {{-- <div class="card-header">
-                            <h4>Input Text</h4>
-                        </div> --}}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">

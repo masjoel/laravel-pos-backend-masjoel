@@ -101,6 +101,21 @@ class AuthController extends Controller
         ]);
     }
 
+    public function savedeviceid(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'deviceid' => 'required'
+        ]);
+        $user = User::where('email', $request->email)->first();
+        $user->remember_token = $request->deviceid;
+        $user->save();
+        return response()->json([
+            'user' => new UserResource($user),
+            'message' => 'device id saved successfully',
+        ]);
+    }
+
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
