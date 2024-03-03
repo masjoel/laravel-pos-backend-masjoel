@@ -6,7 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Mail\KirimEmail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -129,6 +131,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'roles' => 'kasir',
         ]);
+        Mail::to($request->email)->send(new KirimEmail());
 
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
@@ -136,19 +139,26 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
+    // public function kirimEmail()
+    // {
+    //     Mail::to('tujuan@example.com')->send(new KirimEmail());
+
+    //     return 'Email terkirim!';
+    // }
+
 
     public function savedeviceid(Request $request)
     {
-        // $request->validate([
-        //     'email' => 'required',
-        //     'deviceid' => 'required'
-        // ]);
-        // $user = User::where('email', $request->email)->where('device_id', '0')->first();
-        // if (!$user) {
-        //     return response()->json(['message' => 'Oops...aplikasi sudah terinstal di gadget lain!']);
-        // }
-        // $user->device_id = $request->deviceid;
-        // $user->save();
+        $request->validate([
+            'email' => 'required',
+            'deviceid' => 'required'
+        ]);
+        $user = User::where('email', $request->email)->where('device_id', '0')->first();
+        if (!$user) {
+            return response()->json(['message' => 'Oops...aplikasi sudah terinstal di gadget lain!']);
+        }
+        $user->device_id = $request->deviceid;
+        $user->save();
         return response()->json(['message' => 'device id saved successfully']);
     }
 
