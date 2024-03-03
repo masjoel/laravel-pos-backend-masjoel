@@ -131,7 +131,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'roles' => 'kasir',
         ]);
-        Mail::to($request->email)->send(new KirimEmail());
+        // Mail::to($request->email)->send(new KirimEmail());
 
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
