@@ -116,22 +116,24 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
+            'name' => 'required',
             'email' => 'required|string|email',
             'password' => 'required',
-            'name' => 'required'
+            'marketing' => 'required'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'marketing' => $request->marketing,
             'password' => Hash::make($request->password),
-            'roles' => 'user',
+            'roles' => 'kasir',
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'token' => $token,
-            'user' => new UserResource($user),
+            'user' => $user,
         ]);
     }
 
@@ -149,6 +151,7 @@ class AuthController extends Controller
         // $user->save();
         return response()->json(['message' => 'device id saved successfully']);
     }
+
 
     public function logout(Request $request)
     {
