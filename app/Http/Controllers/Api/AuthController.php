@@ -144,9 +144,8 @@ class AuthController extends Controller
         //     echo "Email berhasil terkirim!";
         // } else {
         // }
-        try {
+        // try {
             Mail::to($request->email)->send(new KirimEmail($data));
-            // echo "Email berhasil terkirim!";
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -156,12 +155,11 @@ class AuthController extends Controller
                 'roles' => 'kasir',
             ]);
             $token = $user->createToken('auth_token')->plainTextToken;
-        } catch (Exception $e) {
-            throw ValidationException::withMessages([
-                'email' => ['Terjadi error saat mengirim email. Pastikan email anda valid']
-            ]);
-            // echo "Terjadi kesalahan saat mengirim email: " . $e->getMessage();
-        }
+        // } catch (Exception $e) {
+        //     throw ValidationException::withMessages([
+        //         'email' => ['Terjadi error saat mengirim email. Pastikan email anda valid']
+        //     ]);
+        // }
 
 
 
