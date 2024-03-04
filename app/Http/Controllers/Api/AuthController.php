@@ -136,7 +136,7 @@ class AuthController extends Controller
         ]);
         $generateActivatingCode = rand(100000, 999999);
         $data = [
-            'message' => '<p>Berikut adalah link konfirmasi yang harus diakses setelah mendaftar di aplikasi Kasir, agar status akun anda aktif.</p> <p>Link Konfirmasi: <a href="' . route('konfirmasi', $generateActivatingCode) . '">' . route('konfirmasi', $generateActivatingCode) . '</a></p><p>Terima kasih</p>',
+            'message' => '<p>Berikut adalah link konfirmasi yang harus diakses setelah mendaftar di aplikasi Kasir, agar status akun anda aktif.</p> <p>Link Konfirmasi: <a href="' . route('konfirmasi', $generateActivatingCode) . '">https://kasir.tokopojok.com/konfirmasi/' . $generateActivatingCode . '</a></p><p>Terima kasih</p>',
         ];
         // With Mailable Class:
         // $email = Mail::to($request->email)->send(new KirimEmail($data));
