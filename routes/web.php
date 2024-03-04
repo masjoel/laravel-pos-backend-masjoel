@@ -25,9 +25,10 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('home', function () {
     //     return view('pages.dashboard');
     // })->name('home');
-    Route::get('home', [DashboardController::class, 'index']
-    )->name('home');
+    Route::get('home', [DashboardController::class, 'index'])->name('home');
     Route::resource('user', UserController::class);
     Route::resource('product', ProductController::class);
     Route::resource('order', OrderController::class);
 });
+Route::get('konfirmasi/{confirmation_code}', [UserController::class, 'konfirmasi'])->name('konfirmasi');
+Route::get('register-success', [UserController::class, 'registerSuccess'])->name('register.success');

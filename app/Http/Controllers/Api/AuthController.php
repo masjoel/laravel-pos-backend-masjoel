@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Models\User;
+use App\Mail\KirimEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Mail\KirimEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
+
 
 class AuthController extends Controller
 {
@@ -67,6 +70,13 @@ class AuthController extends Controller
                 'email' => ['email incorrect']
             ]);
         }
+        $userActive = User::where('email_verified_at', null)->first();
+
+        if ($userActive) {
+            throw ValidationException::withMessages([
+                'username' => ['Akun anda belum aktif, silakan akses link konfirmasi di email anda']
+            ]);
+        }
 
         if (!Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
@@ -117,23 +127,52 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        DB::beginTransaction();
         $request->validate([
             'name' => 'required',
-            'email' => 'required|string|email',
+            'email' => 'required|string|email|unique:users',
             'password' => 'required',
             'marketing' => 'required'
         ]);
+        $generateActivatingCode = rand(100000, 999999);
+        $data = [
+            'message' => '<p>Berikut adalah link konfirmasi yang harus diakses setelah mendaftar di aplikasi Kasir, agar status akun anda aktif.</p> <p>Link Konfirmasi: <a href="' . route('konfirmasi', $generateActivatingCode) . '">' . route('konfirmasi', $generateActivatingCode) . '</a></p><p>Terima kasih</p>',
+        ];
+        // With Mailable Class:
+        // $email = Mail::to($request->email)->send(new KirimEmail($data));
+        // if ($email->sent()) {
+        //     echo "Email berhasil terkirim!";
+        // } else {
+        // }
+        try {
+            Mail::to($request->email)->send(new KirimEmail($data));
+            // echo "Email berhasil terkirim!";
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'marketing' => $request->marketing,
+                'password' => Hash::make($request->password),
+                'phone' => $generateActivatingCode,
+                'roles' => 'kasir',
+            ]);
+            $token = $user->createToken('auth_token')->plainTextToken;
+        } catch (Exception $e) {
+            throw ValidationException::withMessages([
+                'email' => ['Terjadi error saat mengirim email. Pastikan email anda valid']
+            ]);
+            // echo "Terjadi kesalahan saat mengirim email: " . $e->getMessage();
+        }
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'marketing' => $request->marketing,
-            'password' => Hash::make($request->password),
-            'roles' => 'kasir',
-        ]);
-        // Mail::to($request->email)->send(new KirimEmail());
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // Without Mailable Class:
+        // Mail::send('pages.emails.sendmail', $data, function ($message) use ($request) {
+        //     $message->to($request->email, $request->name)
+        //         ->subject('Link Konfirmasi Email');
+        // });
+
+        DB::commit();
+
         return response()->json([
             'token' => $token,
             'user' => $user,

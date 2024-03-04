@@ -16,13 +16,13 @@ class KirimEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
     public function build()
     {
-        return $this->view('pages.emails.sendmail');
+        return $this->view('pages.emails.sendmail', ['data' => $this->data]);
     }
 
     /**
@@ -31,7 +31,7 @@ class KirimEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Kirim Email',
+            subject: 'Link Konfirmasi Email',
         );
     }
 
@@ -41,9 +41,10 @@ class KirimEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'pages.emails.sendmail',
         );
     }
+
 
     /**
      * Get the attachments for the message.

@@ -39,12 +39,22 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('pages.users.edit', compact('user'));
     }
-
+    
     public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->validated();
         $user->update($data);
         return redirect()->route('user.index')->with('success', 'User successfully updated');
+    }
+    public function konfirmasi($confirmation_code)
+    {
+        $user = User::where('phone', $confirmation_code)->update(['phone' => null, 'email_verified_at' => now()]);
+        return redirect()->route('register.success')->with('success', 'Akun Anda sudah aktif, silahkan login di aplikasi Kasir');
+    }
+    public function registerSuccess()
+    {
+        $title = 'Konfirmasi Sukses';
+        return view('pages.users.register-success', compact('title'));
     }
 
     public function destroy(User $user)
