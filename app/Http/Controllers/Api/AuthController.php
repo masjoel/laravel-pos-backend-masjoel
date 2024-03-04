@@ -12,7 +12,7 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
-
+use Ramsey\Uuid\Uuid;
 
 class AuthController extends Controller
 {
@@ -134,7 +134,7 @@ class AuthController extends Controller
             'password' => 'required',
             'marketing' => 'required'
         ]);
-        $generateActivatingCode = rand(100000, 999999);
+        $generateActivatingCode = Uuid::uuid1()->getHex();
         $data = [
             'message' => '<p>Berikut adalah link konfirmasi yang harus diakses setelah mendaftar di aplikasi Kasir, agar status akun anda aktif.</p> <p>Link Konfirmasi: <a href="' . route('konfirmasi', $generateActivatingCode) . '">https://kasir.tokopojok.com/konfirmasi/' . $generateActivatingCode . '</a></p><p>Terima kasih</p>',
         ];
