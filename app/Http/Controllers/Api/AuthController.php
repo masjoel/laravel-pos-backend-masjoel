@@ -135,34 +135,20 @@ class AuthController extends Controller
             'marketing' => 'required'
         ]);
         $generateActivatingCode = Uuid::uuid1()->getHex();
-        $data = [
-            'message' => '<p>Berikut adalah link konfirmasi yang harus diakses setelah mendaftar di aplikasi Kasir, agar status akun anda aktif.</p> <p>Link Konfirmasi: <a href="' . route('konfirmasi', $generateActivatingCode) . '">https://kasir.tokopojok.com/konfirmasi/' . $generateActivatingCode . '</a></p><p>Terima kasih</p>',
-        ];
-        // With Mailable Class:
-        // $email = Mail::to($request->email)->send(new KirimEmail($data));
-        // if ($email->sent()) {
-        //     echo "Email berhasil terkirim!";
-        // } else {
-        // }
-        // try {
-            Mail::to($request->email)->send(new KirimEmail($data));
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'marketing' => $request->marketing,
-                'password' => Hash::make($request->password),
-                'phone' => $generateActivatingCode,
-                'roles' => 'kasir',
-            ]);
-            $token = $user->createToken('auth_token')->plainTextToken;
-        // } catch (Exception $e) {
-        //     throw ValidationException::withMessages([
-        //         'email' => ['Terjadi error saat mengirim email. Pastikan email anda valid']
-        //     ]);
-        // }
-
-
-
+        // $data = [
+        //     'message' => '<p>Berikut adalah link konfirmasi yang harus diakses setelah mendaftar di aplikasi Kasir, agar status akun anda aktif.</p> <p>Link Konfirmasi: <a href="' . route('konfirmasi', $generateActivatingCode) . '">https://kasir.tokopojok.com/konfirmasi/' . $generateActivatingCode . '</a></p><p>Terima kasih</p>',
+        // ];
+        // Mail::to($request->email)->send(new KirimEmail($data));
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'marketing' => $request->marketing,
+            'password' => Hash::make($request->password),
+            'phone' => $generateActivatingCode,
+            'email_verified_at' => now(),
+            'roles' => 'kasir',
+        ]);
+        $token = $user->createToken('auth_token')->plainTextToken;
         // Without Mailable Class:
         // Mail::send('pages.emails.sendmail', $data, function ($message) use ($request) {
         //     $message->to($request->email, $request->name)
@@ -176,13 +162,6 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
-    // public function kirimEmail()
-    // {
-    //     Mail::to('tujuan@example.com')->send(new KirimEmail());
-
-    //     return 'Email terkirim!';
-    // }
-
 
     public function savedeviceid(Request $request)
     {
