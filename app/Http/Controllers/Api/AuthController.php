@@ -70,7 +70,7 @@ class AuthController extends Controller
                 'email' => ['email incorrect']
             ]);
         }
-        $userActive = User::where('email_verified_at', null)->first();
+        $userActive = User::where('email', $request->email)->where('email_verified_at', null)->first();
 
         if ($userActive) {
             throw ValidationException::withMessages([
