@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $users = User::orderBy('id', 'desc')
             ->when($request->input('name'), function ($query, $name) {
-                return $query->where('name', 'like', '%' . $name . '%');
+                return $query->where('name', 'like', '%' . $name . '%')->orWhere('email', 'like', '%' . $name . '%')->orWhere('phone', 'like', '%' . $name . '%')->orWhere('roles', 'like', '%' . $name . '%');
             })
             ->paginate(10);
         return view('pages.users.index', compact('users'));
