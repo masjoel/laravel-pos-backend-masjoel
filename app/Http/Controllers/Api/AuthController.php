@@ -174,7 +174,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Oops...aplikasi sudah terinstal di gadget lain!']);
         }
         $user->device_id = $request->email;
-        $user->two_factor_recovery_codes = $request->deviceid;
+        $user->booking_id = $request->deviceid;
         $user->save();
         return response()->json(['message' => 'device id saved successfully']);
     }
