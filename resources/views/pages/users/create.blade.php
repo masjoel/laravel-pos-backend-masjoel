@@ -128,7 +128,7 @@
 
         function getAutoNumber(element, prefix, isAsync = true) {
             $.ajax({
-                url: "{{ url('') }}/autonumbers?prefix=" + prefix,
+                url: BASE_URL + "/autonumbers?prefix=" + prefix,
                 type: 'GET',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
