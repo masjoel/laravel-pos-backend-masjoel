@@ -29,6 +29,9 @@ class UserController extends Controller
     public function store(StoreUserReq $request)
     {
         $data = $request->all();
+        if ($request->roles !== 'reseller') {
+            $data['reseller_id'] = null;
+        }
         $data['password'] = Hash::make($request->password);
         User::create($data);
         return redirect()->route('user.index')->with('success', 'User successfully created');

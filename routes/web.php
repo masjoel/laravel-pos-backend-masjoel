@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AutoNumberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', function () {
     return view('pages.auth.login');
 });
+Route::get('autonumbers', [AutoNumberController::class, 'get']);
 
 Route::middleware(['auth'])->group(function () {
     // Route::get('home', function () {

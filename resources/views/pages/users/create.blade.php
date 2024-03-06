@@ -111,6 +111,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-right">
+                            <input type="hidden" name="reseller_id" id="input-reseller-id">
                             <button class="btn btn-primary">Submit</button>
                         </div>
                     </form>
@@ -122,4 +123,23 @@
 @endsection
 
 @push('scripts')
+    <script>
+        getAutoNumber('#input-reseller-id', 'NOMOR');
+
+        function getAutoNumber(element, prefix, isAsync = true) {
+            $.ajax({
+                url: "{{ url('') }}/autonumbers?prefix=" + prefix,
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: 'JSON',
+                async: isAsync,
+                success: function(res, textStatus, jqXHR) {
+                    $(element).val(res);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {},
+            });
+        }
+    </script>
 @endpush
