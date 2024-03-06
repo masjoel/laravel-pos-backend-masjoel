@@ -90,9 +90,9 @@
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}" />
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
+                                                            <a href="#" type="button" class="btn btn-sm btn-danger btn-icon confirm-delete" id="delete-data" data-id="{{ $user->id }}">
                                                                 <i class="fas fa-times"></i> Delete
-                                                            </button>
+                                                            </a>
                                                         </form>
                                                     </div>
                                                 </td>
@@ -120,4 +120,12 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/features-posts.js') }}"></script>
+    <script>
+        $(document).on("click", "a#delete-data", function(e) {
+            e.preventDefault();
+            let id = $(this).data('id');
+            showDeletePopup(BASE_URL + '/user/' + id, '{{ csrf_token() }}', '', '',
+                BASE_URL + '/user');
+        });
+    </script>
 @endpush

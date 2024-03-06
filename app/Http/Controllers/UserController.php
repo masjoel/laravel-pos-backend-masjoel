@@ -62,7 +62,12 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        DB::beginTransaction();
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'User successfully deleted');
+        DB::commit();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Succesfully Deleted Data'
+        ]);
     }
 }
