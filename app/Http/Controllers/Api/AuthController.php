@@ -8,6 +8,7 @@ use App\Mail\KirimEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProspectResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -38,7 +39,9 @@ class AuthController extends Controller
     public function prospect(string $id)
     {
         $idM=User::where('id', $id)->first()->reseller_id;
-        $data=User::where('marketing', $idM)->orderBy('id', 'desc')->get();
+        $data = User::where('marketing', $idM)->orderBy('id', 'desc')->get()->map(function ($user) {
+            return new ProspectResource($user);
+        });
         return response()->json([
             'success' => true,
             'message' => 'List Data Prospect',
