@@ -40,8 +40,9 @@ class AuthController extends Controller
         $idM=User::where('id', $id)->first()->reseller_id;
         $data=User::where('marketing', $idM)->orderBy('id', 'desc')->get();
         return response()->json([
+            'success' => true,
+            'message' => 'List Data Prospect',
             'data' => $data,
-            'marketing' => $idM
         ]);
     }
 
