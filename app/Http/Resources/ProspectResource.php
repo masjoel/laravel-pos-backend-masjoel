@@ -15,12 +15,12 @@ class ProspectResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            // 'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'roles' => $this->roles,
-            'reseller_id' => $this->reseller_id,
-            'created_at' => $this->created_at,
+            // 'roles' => $this->roles,
+            // 'reseller_id' => $this->reseller_id,
+            // 'created_at' => $this->created_at,
         ];
     }
 }
