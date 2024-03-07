@@ -44,10 +44,15 @@ class AuthController extends Controller
             return new ProspectResource($user);
         });
         return response()->json([
-            'success' => true,
-            'message' => 'List Data Prospect',
-            'data' => $data,
-        ]);
+            'message' => 'Success',
+            'data' => $data
+        ], 200);
+
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'List Data Prospect',
+        //     'data' => $data,
+        // ]);
     }
 
     /**
