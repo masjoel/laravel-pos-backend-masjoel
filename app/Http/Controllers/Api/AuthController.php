@@ -39,10 +39,10 @@ class AuthController extends Controller
     public function prospect(string $id)
     {
         $idM=User::where('id', $id)->first()->reseller_id;
-        $data = User::where('marketing', $idM)->orderBy('id', 'desc')->get();
-        // $data = User::where('marketing', $idM)->orderBy('id', 'desc')->get()->map(function ($user) {
-        //     return new ProspectResource($user);
-        // });
+        // $data = User::where('marketing', $idM)->orderBy('id', 'desc')->get();
+        $data = User::where('marketing', $idM)->orderBy('id', 'desc')->get()->map(function ($user) {
+            return new ProspectResource($user);
+        });
         return response()->json([
             'success' => true,
             'message' => 'List Data Prospect',
