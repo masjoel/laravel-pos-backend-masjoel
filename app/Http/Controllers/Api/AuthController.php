@@ -8,7 +8,6 @@ use App\Mail\KirimEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProspectResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -43,7 +42,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'List Data Prospect',
-            'data' => new ProspectResource($data),
+            'data' => $data,
         ]);
     }
 
