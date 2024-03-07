@@ -26,3 +26,4 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 Route::apiResource('products', ProductController::class)->middleware('auth:sanctum');
 Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
 Route::post('savedeviceid', [AuthController::class, 'savedeviceid'])->middleware('auth:sanctum');
+Route::get('prospect/{id}', [AuthController::class, 'prospect'])->middleware('auth:sanctum');

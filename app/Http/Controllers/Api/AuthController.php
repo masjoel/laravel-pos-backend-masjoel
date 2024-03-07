@@ -35,9 +35,14 @@ class AuthController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function prospect(string $id)
     {
-        //
+        $idM=User::where('id', $id)->first()->reseller_id;
+        $data=User::where('marketing', $idM)->orderBy('id', 'desc')->get();
+        return response()->json([
+            'data' => $data,
+            'marketing' => $idM
+        ]);
     }
 
     /**
