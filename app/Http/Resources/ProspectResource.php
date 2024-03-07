@@ -18,9 +18,9 @@ class ProspectResource extends JsonResource
             // 'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            // 'roles' => $this->roles,
-            // 'reseller_id' => $this->reseller_id,
-            // 'created_at' => $this->created_at,
+            'roles' => $this->roles,
+            'reseller_id' => $this->reseller_id,
+            'created_at' => $this->created_at,
         ];
     }
 }
