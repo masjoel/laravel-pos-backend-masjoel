@@ -49,6 +49,15 @@ class AuthController extends Controller
             'data' => $data,
         ]);
     }
+    public function marketing()
+    {
+        $data = User::where('roles', 'reseller')->inRandomOrder()->first();
+        return response()->json([
+            'success' => true,
+            'message' => 'List Data Marketing',
+            'data' => new ProspectResource($data),
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.
