@@ -39,7 +39,6 @@ class AuthController extends Controller
     public function prospect(string $id)
     {
         $idM=User::where('id', $id)->first()->reseller_id;
-        // $data = User::where('marketing', $idM)->orderBy('id', 'desc')->get();
         $data = User::where('marketing', $idM)->orderBy('id', 'desc')->get()->map(function ($user) {
             return new ProspectResource($user);
         });
@@ -182,17 +181,17 @@ class AuthController extends Controller
 
     public function savedeviceid(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'deviceid' => 'required'
-        ]);
-        $user = User::where('email', $request->email)->where('device_id', '0')->first();
-        if (!$user) {
-            return response()->json(['message' => 'Oops...aplikasi sudah terinstal di gadget lain!']);
-        }
-        $user->device_id = $request->email;
-        $user->two_factor_recovery_codes = $request->deviceid;
-        $user->save();
+        // $request->validate([
+        //     'email' => 'required',
+        //     'deviceid' => 'required'
+        // ]);
+        // $user = User::where('email', $request->email)->where('device_id', '0')->first();
+        // if (!$user) {
+        //     return response()->json(['message' => 'Oops...aplikasi sudah terinstal di gadget lain!']);
+        // }
+        // $user->device_id = $request->email;
+        // $user->two_factor_recovery_codes = $request->deviceid;
+        // $user->save();
         return response()->json(['message' => 'device id saved successfully']);
     }
 
