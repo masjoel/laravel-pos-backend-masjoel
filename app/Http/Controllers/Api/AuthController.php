@@ -53,9 +53,7 @@ class AuthController extends Controller
     {
         $data = User::where('roles', 'reseller')->inRandomOrder()->first();
         return response()->json([
-            'success' => true,
-            'message' => 'List Data Marketing',
-            'data' => new ProspectResource($data),
+            'marketing' => $data->reseller_id,
         ]);
     }
 
