@@ -184,7 +184,6 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
             'newpassword' => 'required'
         ]);
         $user = User::where('email', $request->email)->update([
