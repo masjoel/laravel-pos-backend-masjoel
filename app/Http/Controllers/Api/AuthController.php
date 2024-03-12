@@ -178,6 +178,27 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
+    public function changepassword(Request $request)
+    {
+        DB::beginTransaction();
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'newpassword' => 'required'
+        ]);
+        $user = User::where('email', $request->email)->update([
+            'name' => $request->name,
+            'password' => Hash::make($request->newpassword),
+        ]);
+        $user = User::where('email', $request->email)->first();
+        $token = $user->createToken('auth_token')->plainTextToken;
+        DB::commit();
+        return response()->json([
+            'token' => $token,
+            'user' => $user,
+        ]);
+    }
 
     public function savedeviceid(Request $request)
     {
