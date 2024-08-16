@@ -211,7 +211,7 @@ class AuthController extends Controller
         }
         $user->device_id = $request->email;
         $user->two_factor_recovery_codes = $request->deviceid;
-        // $user->save();
+        $user->save();
         return response()->json(['message' => 'device id saved successfully']);
     }
 
