@@ -84,8 +84,12 @@
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
+                                                        <a href='#' id="delete-data" data-id="{{ $user->id }}" class="ml-2 btn btn-sm btn-danger btn-icon">
+                                                            <i class="fas fa-times"></i>
+                                                            Delete
+                                                        </a>
 
-                                                        <form action="{{ route('user.destroy', $user->id) }}"
+                                                        {{-- <form action="{{ route('user.destroy', $user->id) }}"
                                                             method="POST" class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -93,7 +97,7 @@
                                                             <a href="#" type="button" class="btn btn-sm btn-danger btn-icon confirm-delete" id="delete-data" data-id="{{ $user->id }}">
                                                                 <i class="fas fa-times"></i> Delete
                                                             </a>
-                                                        </form>
+                                                        </form> --}}
                                                     </div>
                                                 </td>
                                             </tr>
