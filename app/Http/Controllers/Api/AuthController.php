@@ -207,7 +207,7 @@ class AuthController extends Controller
         ]);
         $user = User::where('email', $request->email)->where('device_id', '0')->first();
         if (!$user) {
-            return response()->json(['message' => 'Oops...aplikasi sudah terinstal di gadget lain!']);
+            return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
         }
         $user->device_id = $request->email;
         $user->two_factor_recovery_codes = $request->deviceid;
