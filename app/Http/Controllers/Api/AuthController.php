@@ -206,12 +206,12 @@ class AuthController extends Controller
             'deviceid' => 'required'
         ]);
         $user = User::where('email', $request->email)->where('device_id', '0')->first();
-        if (!$user) {
-            return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
-        }
+        // if (!$user) {
+        //     return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
+        // }
         $user->device_id = $request->email;
         $user->two_factor_recovery_codes = $request->deviceid;
-        $user->save();
+        // $user->save();
         return response()->json(['message' => 'device id saved successfully']);
     }
 
