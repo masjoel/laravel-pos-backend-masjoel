@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Ramsey\Uuid\Uuid;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -35,7 +36,7 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:png,jpg,jpeg,webp'
         ]);
 
-        $filename = time() . '.' . $request->image->extension();
+        $filename = Uuid::uuid1()->getHex() . '.' . $request->image->extension();
         $request->image->storeAs('public/products', $filename);
         $data = $request->all();
         $data['image'] = $filename;

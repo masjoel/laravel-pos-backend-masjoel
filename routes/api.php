@@ -26,6 +26,7 @@ Route::post('change-password', [AuthController::class, 'changepassword']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::apiResource('products', ProductController::class)->middleware('auth:sanctum');
 Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');
+Route::post('sync-products', [ProductController::class, 'syncProducts'])->middleware('auth:sanctum');
 Route::post('savedeviceid', [AuthController::class, 'savedeviceid'])->middleware('auth:sanctum');
 Route::get('prospect/{id}', [AuthController::class, 'prospect'])->middleware('auth:sanctum');
 Route::get('marketing', [AuthController::class, 'marketing']);
