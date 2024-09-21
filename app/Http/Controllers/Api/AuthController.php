@@ -38,7 +38,7 @@ class AuthController extends Controller
      */
     public function prospect(string $id)
     {
-        $idM=User::where('id', $id)->first()->reseller_id;
+        $idM = User::where('id', $id)->first()->reseller_id;
         $data = User::where('marketing', $idM)->orderBy('id', 'desc')->get()->map(function ($user) {
             return new ProspectResource($user);
         });
@@ -205,13 +205,15 @@ class AuthController extends Controller
             'email' => 'required',
             'deviceid' => 'required'
         ]);
-        $user = User::where('email', $request->email)->where('device_id', '0')->first();
-        if (!$user) {
-            return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
+        if ($request->email !== 'owner@tokopojok.com') {
+            $user = User::where('email', $request->email)->where('device_id', '0')->first();
+            if (!$user) {
+                return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
+            }
+            $user->device_id = $request->email;
+            $user->two_factor_recovery_codes = $request->deviceid;
+            $user->save();
         }
-        $user->device_id = $request->email;
-        $user->two_factor_recovery_codes = $request->deviceid;
-        $user->save();
         return response()->json(['message' => 'device id saved successfully']);
     }
 
