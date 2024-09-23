@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->boolean('is_bayar')->default(true)->after('payment_method');
+        Schema::table('order_items', function (Blueprint $table) {
+            $table->double('hpp')->after('total_price')->default(0);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            //
+        Schema::table('order_items', function (Blueprint $table) {
+            $table->dropColumn('hpp');
         });
     }
 };
