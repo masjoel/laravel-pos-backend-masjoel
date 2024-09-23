@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Owner',
             'email' => 'owner@tokopojok.com',
             'password' => Hash::make('password'),
+            'roles' => 'reseller',
+            'reseller_id' => 'A01',
         ]);
 
 

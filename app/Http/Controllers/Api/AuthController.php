@@ -80,7 +80,13 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-
+        // $cekDevice = User::where('two_factor_recovery_codes', $user->two_factor_recovery_codes)->count();
+        // // dd($cekDevice);
+        // if ($cekDevice > 0) {
+        //     throw ValidationException::withMessages([
+        //         'username' => ['Aplikasi sudah terinstal di perangkat ini! Silakan uninstal aplikasi dulu, lalu login kembali']
+        //     ]);
+        // }
         if (!$user) {
             throw ValidationException::withMessages([
                 'email' => ['email incorrect']
