@@ -93,10 +93,10 @@ class AuthController extends Controller
             ]);
         }
         // $booking_id = User::where('email', $request->email)->first();
-        if ($user->booking_id == $user->phone) {
-            $updDevice['device_id'] = '0';
-            $user->update($updDevice);
-        }
+        // if ($user->booking_id == $user->phone) {
+        //     $updDevice['device_id'] = '0';
+        //     $user->update($updDevice);
+        // }
         $userActive = User::where('email', $request->email)->where('email_verified_at', null)->first();
         if ($userActive) {
             throw ValidationException::withMessages([
@@ -220,6 +220,7 @@ class AuthController extends Controller
             if (!$user) {
                 return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
             }
+            // $user->device_id = $request->deviceid;
             $user->device_id = $request->email;
             $user->two_factor_recovery_codes = $request->deviceid;
             $user->save();
