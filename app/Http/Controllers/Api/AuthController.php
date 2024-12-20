@@ -92,8 +92,12 @@ class AuthController extends Controller
                 'email' => ['email incorrect']
             ]);
         }
+        // $booking_id = User::where('email', $request->email)->first();
+        if ($user->booking_id == $user->phone) {
+            $updDevice['device_id'] = '0';
+            $user->update($updDevice);
+        }
         $userActive = User::where('email', $request->email)->where('email_verified_at', null)->first();
-
         if ($userActive) {
             throw ValidationException::withMessages([
                 'username' => ['Akun anda belum aktif, silakan akses link konfirmasi di email anda']
