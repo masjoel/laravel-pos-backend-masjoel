@@ -218,13 +218,13 @@ class AuthController extends Controller
         $updUser = User::where('email', $request->email)->first();
         $lifetime = 0;
         // if (TRIM($user->booking_id) == TRIM($user->phone) && $user->two_factor_recovery_codes == $request->deviceid) {
-        if (TRIM($updUser->booking_id) == TRIM($updUser->phone)) {
-            $lifetime = 1;
-            $updDevice['two_factor_recovery_codes'] = $request->deviceid;
-            $updDevice['device_id'] = '0';
-            $updUser->update($updDevice);
-            // two_factor_recovery_codes - TE1A.220922.021
-        }
+        // if (TRIM($updUser->booking_id) == TRIM($updUser->phone)) {
+        //     $lifetime = 1;
+        //     $updDevice['two_factor_recovery_codes'] = $request->deviceid;
+        //     $updDevice['device_id'] = '0';
+        //     $updUser->update($updDevice);
+        //     // two_factor_recovery_codes - TE1A.220922.021
+        // }
         if ($request->email !== 'owner@tokopojok.com') {
         // if ($lifetime < 1) {
             $cekUser = User::where('email', $request->email)->where('device_id', '0')->first();
