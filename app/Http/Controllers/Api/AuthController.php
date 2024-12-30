@@ -219,6 +219,8 @@ class AuthController extends Controller
         $lifetime = 0;
         if (TRIM($user->booking_id) == TRIM($user->phone)) {
             $lifetime = 1;
+            $updDevice['device_id'] = '0';
+            $user->update($updDevice);
         }
         // if ($request->email !== 'owner@tokopojok.com' && $lifetime == 0) {
         if ($lifetime < 1) {
