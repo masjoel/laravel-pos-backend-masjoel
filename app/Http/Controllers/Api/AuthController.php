@@ -217,13 +217,16 @@ class AuthController extends Controller
         ]);
         $user = User::where('email', $request->email)->first();
         $lifetime = 0;
+        // if (TRIM($user->booking_id) == TRIM($user->phone) && $user->two_factor_recovery_codes == $request->deviceid) {
         if (TRIM($user->booking_id) == TRIM($user->phone)) {
             $lifetime = 1;
             $updDevice['device_id'] = '0';
+            $updDevice['two_factor_recovery_codes'] = $request->deviceid;
             $user->update($updDevice);
+            // two_factor_recovery_codes - TE1A.220922.021
         }
-        // if ($lifetime < 1) {
-        if ($request->email !== 'owner@tokopojok.com') {
+        // if ($request->email !== 'owner@tokopojok.com') {
+        if ($lifetime < 1) {
             $user = User::where('email', $request->email)->where('device_id', '0')->first();
             if (!$user) {
                 return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
