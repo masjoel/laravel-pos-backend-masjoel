@@ -92,11 +92,11 @@ class AuthController extends Controller
                 'email' => ['email incorrect']
             ]);
         }
-        $booking_id = User::where('email', $request->email)->first();
-        if ($user->booking_id == $user->phone) {
-            $updDevice['device_id'] = '0';
-            $user->update($updDevice);
-        }
+        // $booking_id = User::where('email', $request->email)->first();
+        // if ($user->booking_id == $user->phone) {
+        //     $updDevice['device_id'] = '0';
+        //     $user->update($updDevice);
+        // }
         $userActive = User::where('email', $request->email)->where('email_verified_at', null)->first();
         if ($userActive) {
             throw ValidationException::withMessages([
@@ -215,7 +215,12 @@ class AuthController extends Controller
             'email' => 'required',
             'deviceid' => 'required'
         ]);
-        if ($request->email !== 'owner@tokopojok.com') {
+        $user = User::where('email', $request->email)->first();
+        $lifetime = 0;
+        if ($user->booking_id == $user->phone) {
+            $lifetime = 1;
+        }
+        if ($request->email !== 'owner@tokopojok.com' || $lifetime == 0) {
             $user = User::where('email', $request->email)->where('device_id', '0')->first();
             if (!$user) {
                 return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
