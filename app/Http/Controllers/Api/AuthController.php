@@ -225,8 +225,8 @@ class AuthController extends Controller
             $user->update($updDevice);
             // two_factor_recovery_codes - TE1A.220922.021
         }
-        // if ($request->email !== 'owner@tokopojok.com') {
-        if ($lifetime < 1) {
+        if ($request->email !== 'owner@tokopojok.com') {
+        // if ($lifetime < 1) {
             $user = User::where('email', $request->email)->where('device_id', '0')->first();
             if (!$user) {
                 return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
