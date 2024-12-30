@@ -222,8 +222,8 @@ class AuthController extends Controller
             $updDevice['device_id'] = '0';
             $user->update($updDevice);
         }
-        // if ($request->email !== 'owner@tokopojok.com' && $lifetime == 0) {
-        if ($lifetime < 1) {
+        // if ($lifetime < 1) {
+        if ($request->email !== 'owner@tokopojok.com') {
             $user = User::where('email', $request->email)->where('device_id', '0')->first();
             if (!$user) {
                 return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
