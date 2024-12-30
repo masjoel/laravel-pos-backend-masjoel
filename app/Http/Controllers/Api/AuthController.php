@@ -215,26 +215,26 @@ class AuthController extends Controller
             'email' => 'required',
             'deviceid' => 'required'
         ]);
-        $user = User::where('email', $request->email)->first();
+        $updUser = User::where('email', $request->email)->first();
         $lifetime = 0;
         // if (TRIM($user->booking_id) == TRIM($user->phone) && $user->two_factor_recovery_codes == $request->deviceid) {
-        if (TRIM($user->booking_id) == TRIM($user->phone)) {
+        if (TRIM($updUser->booking_id) == TRIM($updUser->phone)) {
             $lifetime = 1;
+            $updDevice['two_factor_recovery_codes'] = $request->deviceid;
             $updDevice['device_id'] = '0';
-            $updDevice['two_factor_recovery_codes'] = '123123123';
-            $user->update($updDevice);
+            $updUser->update($updDevice);
             // two_factor_recovery_codes - TE1A.220922.021
         }
         if ($request->email !== 'owner@tokopojok.com') {
         // if ($lifetime < 1) {
-            $user = User::where('email', $request->email)->where('device_id', '0')->first();
-            if (!$user) {
+            $cekUser = User::where('email', $request->email)->where('device_id', '0')->first();
+            if (!$cekUser) {
                 return response()->json(['message' => 'Oops... Aplikasi sudah terinstal di perangkat lain!']);
             }
-            // $user->device_id = $request->deviceid;
-            $user->device_id = $request->email;
-            $user->two_factor_recovery_codes = $request->deviceid;
-            $user->save();
+            // $cekUser->device_id = $request->deviceid;
+            $cekUser->device_id = $request->email;
+            $cekUser->two_factor_recovery_codes = $request->deviceid;
+            $cekUser->save();
         }
         return response()->json(['message' => 'device id saved successfully']);
     }
