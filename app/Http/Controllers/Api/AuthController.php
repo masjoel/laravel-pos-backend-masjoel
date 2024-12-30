@@ -221,7 +221,7 @@ class AuthController extends Controller
         if (TRIM($user->booking_id) == TRIM($user->phone)) {
             $lifetime = 1;
             $updDevice['device_id'] = '0';
-            $updDevice['two_factor_recovery_codes'] = $request->deviceid;
+            $updDevice['two_factor_recovery_codes'] = date('Y-m-d H:i:s');
             $user->update($updDevice);
             // two_factor_recovery_codes - TE1A.220922.021
         }
