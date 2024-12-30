@@ -217,8 +217,8 @@ class AuthController extends Controller
         ]);
         $updUser = User::where('email', $request->email)->first();
         $lifetime = 0;
-        if (TRIM($updUser->booking_id) == TRIM($updUser->phone) && $updUser->two_factor_recovery_codes == $request->deviceid) {
-        // if (TRIM($updUser->booking_id) == TRIM($updUser->phone)) {
+        // if (TRIM($updUser->booking_id) == TRIM($updUser->phone) && $updUser->two_factor_recovery_codes == $request->deviceid) {
+        if (TRIM($updUser->booking_id) == TRIM($updUser->phone)) {
             $lifetime = 1;
             $updDevice['two_factor_recovery_codes'] = $request->deviceid;
             $updDevice['device_id'] = '0';
