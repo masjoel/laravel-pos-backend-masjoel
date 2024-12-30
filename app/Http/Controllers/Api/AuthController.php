@@ -217,7 +217,7 @@ class AuthController extends Controller
         ]);
         $user = User::where('email', $request->email)->first();
         $lifetime = 0;
-        if ($user->booking_id == $user->phone) {
+        if (TRIM($user->booking_id) == TRIM($user->phone)) {
             $lifetime = 1;
         }
         // if ($request->email !== 'owner@tokopojok.com' && $lifetime == 0) {
