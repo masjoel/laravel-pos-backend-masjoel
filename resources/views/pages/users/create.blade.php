@@ -32,9 +32,9 @@
                 <div class="card">
                     <form action="{{ route('user.store') }}" method="POST">
                         @csrf
-                        <div class="card-header">
+                        {{-- <div class="card-header">
                             <h4>Input Text</h4>
-                        </div>
+                        </div> --}}
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Name</label>
@@ -82,10 +82,10 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="number" class="form-control" name="phone">
-                            </div>
+                            {{-- <div class="form-group">
+                                <label>Phone</label> --}}
+                                <input type="hidden" class="form-control" name="phone" value="{{ now()->format('YmdHis') }}">
+                            {{-- </div> --}}
                             <div class="form-group">
                                 <label class="form-label">Roles</label>
                                 <div class="selectgroup w-100">

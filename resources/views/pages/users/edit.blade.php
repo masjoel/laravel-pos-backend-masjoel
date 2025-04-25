@@ -83,7 +83,8 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            <input type="hidden" name="phone" value="{{ $user->phone }}">
+                            {{-- <div class="form-group">
                                 <label>Phone</label>
                                 <input type="number"
                                     class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone }}">
@@ -92,7 +93,7 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label class="form-label">Roles</label>
                                 <div class="selectgroup w-100">
