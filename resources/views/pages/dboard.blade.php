@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Pending User</h4>
+                                <h4>All Trial User</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-right">
@@ -52,7 +52,7 @@
                                             <th>Email</th>
                                             <th>Roles</th>
                                             <th>Created At</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                         @foreach ($users as $user)
                                             <tr>
