@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'iPOS Dashboard')
+@section('title', 'Dashboard')
 
 @push('style')
     <style>
