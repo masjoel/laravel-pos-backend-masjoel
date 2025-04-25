@@ -33,9 +33,9 @@
                     <form action="{{ route('user.update', $user) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="card-header">
+                        {{-- <div class="card-header">
                             <h4>Input Text</h4>
-                        </div>
+                        </div> --}}
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Name</label>
