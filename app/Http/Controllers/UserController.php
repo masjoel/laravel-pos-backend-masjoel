@@ -14,6 +14,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::orderBy('id', 'desc')
+            ->where('email', '!=', 'owner@tokopojok.com')
             ->when($request->input('name'), function ($query, $name) {
                 return $query->where('name', 'like', '%' . $name . '%')->orWhere('email', 'like', '%' . $name . '%')->orWhere('phone', 'like', '%' . $name . '%')->orWhere('roles', 'like', '%' . $name . '%');
             })
@@ -42,7 +43,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('pages.users.edit', compact('user'));
     }
-    
+
     public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->validated();

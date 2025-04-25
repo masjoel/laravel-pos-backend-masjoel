@@ -101,21 +101,21 @@
                                             @if ($user->roles == 'admin') checked @endif>
                                         <span class="selectgroup-button">Admin</span>
                                     </label>
-                                    <label class="selectgroup-item">
+                                    {{-- <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="staff" class="selectgroup-input"
                                             @if ($user->roles == 'staff') checked @endif>
                                         <span class="selectgroup-button">Staff</span>
-                                    </label>
+                                    </label> --}}
                                     <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="kasir" class="selectgroup-input"
                                             @if ($user->roles == 'kasir') checked @endif>
                                         <span class="selectgroup-button">Kasir</span>
                                     </label>
-                                    <label class="selectgroup-item">
+                                    {{-- <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="reseller" class="selectgroup-input"
                                             @if ($user->roles == 'reseller') checked @endif>
                                         <span class="selectgroup-button">Reseller</span>
-                                    </label>
+                                    </label> --}}
 
                                 </div>
                             </div>
