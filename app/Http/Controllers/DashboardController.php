@@ -95,6 +95,6 @@ class DashboardController extends Controller
             ->limit(5)->get();
 
         $title = 'Dashboard';
-        return view('pages.dashboard', compact('title', 'search', 'tot_proses', 'tot_finish', 'tot_order', 'tot_balance', 'tot_budget', 'tot_sales', 'terlaris', 'order', 'tglBalance', 'totalBudget', 'totalBalance','bestproducts'));
+        return view('pages.dboard', compact('title', 'search', 'tot_proses', 'tot_finish', 'tot_order', 'tot_balance', 'tot_budget', 'tot_sales', 'terlaris', 'order', 'tglBalance', 'totalBudget', 'totalBalance','bestproducts'));
     }
 }
