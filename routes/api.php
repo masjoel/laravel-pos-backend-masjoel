@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,4 @@ Route::post('sync-products', [ProductController::class, 'syncProducts'])->middle
 Route::post('savedeviceid', [AuthController::class, 'savedeviceid'])->middleware('auth:sanctum');
 Route::get('prospect/{id}', [AuthController::class, 'prospect'])->middleware('auth:sanctum');
 Route::get('marketing', [AuthController::class, 'marketing']);
+Route::post('/register', [RegistrationController::class, 'store']);
