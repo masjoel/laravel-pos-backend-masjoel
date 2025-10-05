@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="float-right">
-                                        <form method="GET" action="{{ route('user.index') }}">
+                                        <form method="GET" action="{{ route('home.post') }}">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Search"
                                                     name="name">
@@ -45,6 +45,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Roles</th>
+                                                <th>Reseller</th>
                                                 <th>Created At</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
@@ -54,6 +55,7 @@
                                                     </td>
                                                     <td>{{ $user->email }}</td>
                                                     <td>{{ ucwords($user->roles) }}</td>
+                                                    <td>{{ $user->marketing }}</td>
                                                     <td>{{ $user->created_at }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">

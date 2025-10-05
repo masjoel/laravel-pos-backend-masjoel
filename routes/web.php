@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     //     return view('pages.dashboard');
     // })->name('home');
     Route::get('home', [DashboardController::class, 'index'])->name('home');
+    Route::post('home', [DashboardController::class, 'index'])->name('home.post');
     Route::resource('user', UserController::class);
     Route::resource('product', ProductController::class);
     Route::resource('order', OrderController::class);

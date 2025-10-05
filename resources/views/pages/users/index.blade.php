@@ -68,6 +68,7 @@
                                             <th>Email</th>
                                             <th>Roles</th>
                                             <th>Status</th>
+                                            <th>Reseller</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
@@ -84,6 +85,7 @@
                                                         <span class="badge badge-danger">Trial</span>
                                                     @endif
                                                 </td>
+                                                <td>{{ $user->marketing }}</td>
                                                 <td>{{ $user->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">

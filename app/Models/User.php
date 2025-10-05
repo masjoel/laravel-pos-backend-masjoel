@@ -38,4 +38,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function reseller()
+    {
+        return $this->hasMany(Reseller::class, 'reseller_id', 'marketing');
+    }
 }
