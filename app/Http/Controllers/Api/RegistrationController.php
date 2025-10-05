@@ -38,6 +38,40 @@ class RegistrationController extends Controller
             'data' => $user,
         ], 201);
     }
+
+    public function dataReseller(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+        ]);
+        $user = User::where('email', $validated['email'])->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Reseller tidak ditemukan.',
+            ], 404);
+        }
+
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Data Reseller ditemukan.',
+        //     'data' => $user,
+        // ], 200);
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Reseller ditemukan.',
+            'data' => [
+                'name' => $user->name,
+                'email' => $user->email,
+                'telpon' => $user->telpon,
+                'address' => $user->address,
+                'bank' => $user->bank,
+                'reseller_id' => $user->reseller_id,
+            ],
+        ], 200);
+    }
+
     public function storeReseller(Request $request)
     {
         $validated = $request->validate([

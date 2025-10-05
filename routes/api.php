@@ -35,3 +35,4 @@ Route::get('prospect/{id}', [AuthController::class, 'prospect'])->middleware('au
 Route::get('marketing', [AuthController::class, 'marketing']);
 Route::post('/register', [RegistrationController::class, 'store']);
 Route::post('/register-reseller', [RegistrationController::class, 'storeReseller']);
+Route::post('/data-reseller', [RegistrationController::class, 'dataReseller']);
