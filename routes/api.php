@@ -34,3 +34,4 @@ Route::post('savedeviceid', [AuthController::class, 'savedeviceid'])->middleware
 Route::get('prospect/{id}', [AuthController::class, 'prospect'])->middleware('auth:sanctum');
 Route::get('marketing', [AuthController::class, 'marketing']);
 Route::post('/register', [RegistrationController::class, 'store']);
+Route::post('/register-reseller', [RegistrationController::class, 'storeReseller']);
