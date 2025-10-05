@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AutoNumberHelper;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,6 +50,10 @@ class UserController extends Controller
         $data = $request->validated();
         if ($request->password !== null) {
             $data['password'] = Hash::make($request->password);
+        }
+        if ($request->roles == 'reseller' && $user->reseller_id == null) {
+            $idReseller = AutoNumberHelper::initGenerateNumber('NOMOR');
+            $data['reseller_id'] = $idReseller;
         }
         $user->update($data);
         return redirect()->route('user.index')->with('success', 'User successfully updated');

@@ -112,12 +112,13 @@
                                             @if ($user->roles == 'kasir') checked @endif>
                                         <span class="selectgroup-button">Kasir</span>
                                     </label>
-                                    {{-- <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="reseller" class="selectgroup-input"
-                                            @if ($user->roles == 'reseller') checked @endif>
-                                        <span class="selectgroup-button">Reseller</span>
-                                    </label> --}}
-
+                                    @if (Auth::user()->email == 'owner@tokopojok.com')
+                                        <label class="selectgroup-item">
+                                            <input type="radio" name="roles" value="reseller" class="selectgroup-input"
+                                                @if ($user->roles == 'reseller') checked @endif>
+                                            <span class="selectgroup-button">Reseller</span>
+                                        </label>
+                                    @endif
                                 </div>
                             </div>
                         </div>
