@@ -225,8 +225,8 @@ class AuthController extends Controller
             $updUser->update($updDevice);
             // two_factor_recovery_codes - TE1A.220922.021
         }
-
         $allowed = ['owner@tokopojok.com', 'masmukhlis@example.com', 'mukhlisin.dev@gmail.com', 'masjoel@gmail.com'];
+
         // if ($request->email !== 'owner@tokopojok.com') {
         if (!in_array($request->email, $allowed)) {
             // if ($lifetime < 1) {
