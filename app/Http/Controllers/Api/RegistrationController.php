@@ -25,13 +25,13 @@ class RegistrationController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
+            'device_id' => $validated['email'],
             'marketing' => $validated['marketing'],
-            'password' => $validated['email'],
+            'password' => bcrypt($validated['password']),
             'phone' => $generateActivatingCode,
             'email_verified_at' => now(),
             'roles' => 'kasir',
         ]);
-        // 'password' => bcrypt($validated['password']),
         
         return response()->json([
             'success' => true,

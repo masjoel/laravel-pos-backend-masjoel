@@ -168,13 +168,13 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'device_id' => $request->email,
             'marketing' => $request->marketing,
-            'password' => $request->email,
+            'password' => Hash::make($request->password),
             'phone' => $generateActivatingCode,
             'email_verified_at' => now(),
             'roles' => 'kasir',
         ]);
-        // 'password' => Hash::make($request->password),
         $token = $user->createToken('auth_token')->plainTextToken;
         // Without Mailable Class:
         // Mail::send('pages.emails.sendmail', $data, function ($message) use ($request) {
