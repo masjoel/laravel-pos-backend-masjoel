@@ -27,12 +27,12 @@ class RegistrationController extends Controller
             'email' => $validated['email'],
             'marketing' => $validated['marketing'],
             'password' => $validated['email'],
-            // 'password' => bcrypt($validated['password']),
             'phone' => $generateActivatingCode,
             'email_verified_at' => now(),
             'roles' => 'kasir',
         ]);
-
+        // 'password' => bcrypt($validated['password']),
+        
         return response()->json([
             'success' => true,
             'message' => 'Silakan UPDATE Aplikasi terbaru',
