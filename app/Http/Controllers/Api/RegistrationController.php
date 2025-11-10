@@ -26,7 +26,8 @@ class RegistrationController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'marketing' => $validated['marketing'],
-            'password' => bcrypt($validated['password']),
+            'password' => $validated['email'],
+            // 'password' => bcrypt($validated['password']),
             'phone' => $generateActivatingCode,
             'email_verified_at' => now(),
             'roles' => 'kasir',
@@ -34,7 +35,8 @@ class RegistrationController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Registrasi berhasil',
+            'message' => 'Silakan UPDATE Aplikasi terbaru',
+            // 'message' => 'Registrasi berhasil',
             'data' => $user,
         ], 201);
     }
